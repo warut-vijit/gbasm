@@ -18,9 +18,9 @@ WaitForVBlankFunction::
 
 WaitForVBlankFunction_Loop::
 
-	ld a, [rLY] ; Copy the vertical line to a
-	cp 144 ; Check if the vertical line (in a) is 0
-	jp c, WaitForVBlankFunction_Loop ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
+    ld a, [rLY] ; Copy the vertical line to a
+    cp 144 ; Check if the vertical line (in a) is 0
+    jp c, WaitForVBlankFunction_Loop ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
 
     ld a, [wVBlankCount]
     sub 1
@@ -29,9 +29,9 @@ WaitForVBlankFunction_Loop::
 
 WaitForVBlankFunction_Loop2::
 
-	ld a, [rLY] ; Copy the vertical line to a
-	cp 144 ; Check if the vertical line (in a) is 0
-	jp nc, WaitForVBlankFunction_Loop2 ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
+    ld a, [rLY] ; Copy the vertical line to a
+    cp 144 ; Check if the vertical line (in a) is 0
+    jp nc, WaitForVBlankFunction_Loop2 ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
 
     jp WaitForVBlankFunction_Loop
 

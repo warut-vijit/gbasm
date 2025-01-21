@@ -4,25 +4,31 @@ INCLUDE "src/main/utils/macros/text-macros.inc"
 
 SECTION "TitleScreenState", ROM0
 
-PressPlayText::  db "press a to play", 255
+PressPlayText::  db "Press A to start", 255
  
 titleScreenTileData: INCBIN "src/generated/backgrounds/title-screen.2bpp"
 titleScreenTileDataEnd:
  
 titleScreenTileMap: INCBIN "src/generated/backgrounds/title-screen.tilemap"
 titleScreenTileMapEnd:
+
 ; ANCHOR_END: title-screen-start
 ; ANCHOR: title-screen-init
 InitTitleScreenState::
 
-	call DrawTitleScreen
-	
+    call DrawTitleScreen
+    
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Draw the press play text
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	; Call Our function that draws text onto background/window tiles
-    ld de, $99C3
+    ; Set palette 0 to background palette
+    ld de, paletteBackground
+    ld b, 0
+    call CopyDEintoPaletteB
+
+    ; Call Our function that draws text onto background/window tiles
+    ld de, $99C2
     ld hl, PressPlayText
     call DrawTextTilesLoop
 
@@ -30,30 +36,31 @@ InitTitleScreenState::
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	; Turn the LCD on
-	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16
-	ld [rLCDC], a
+    ; Turn the LCD on
+    ld a, LCDCF_ON|LCDCF_BGON|LCDCF_OBJON|LCDCF_OBJ16|LCDCF_BG8000
+    ld [rLCDC], a
 
     ret
 ; ANCHOR_END: title-screen-init
-	
+    
 ; ANCHOR: draw-title-screen
 DrawTitleScreen::
-	
-	; Copy the tile data
-	ld de, titleScreenTileData ; de contains the address where data will be copied from;
-	ld hl, $9340 ; hl contains the address where data will be copied to;
-	ld bc, titleScreenTileDataEnd - titleScreenTileData ; bc contains how many bytes we have to copy.
-	call CopyDEintoMemoryAtHL
-	
-	; Copy the tilemap
-	ld de, titleScreenTileMap
-	ld hl, $9800
-	ld bc, titleScreenTileMapEnd - titleScreenTileMap
-	jp CopyDEintoMemoryAtHL_With52Offset
+    
+    ; Copy the tile data
+    ld de, titleScreenTileData ; de contains the address where data will be copied from;
+    ; Because of the text font, add an offset of 2 bytes for every font tile.
+    ld hl, $8000
+    ld bc, titleScreenTileDataEnd - titleScreenTileData ; bc contains how many bytes we have to copy.
+    call CopyDEintoMemoryAtHL
+    
+    ; Copy the tilemap
+    ld de, titleScreenTileMap
+    ld hl, $9800
+    ld bc, titleScreenTileMapEnd - titleScreenTileMap
+    jp CopyDEintoScreen
 
 ; ANCHOR_END: draw-title-screen
-	
+    
 ; ANCHOR: update-title-screen
 UpdateTitleScreenState::
 

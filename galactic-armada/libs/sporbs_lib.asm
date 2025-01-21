@@ -67,15 +67,15 @@ SECTION "Initialize Sprite Object Library", ROM0
 InitSprObjLibWrapper::
 
   call InitSprObjLib
-	; Reset hardware OAM
-	xor a, a
-	ld b, 160
-	ld hl, _OAMRAM
-	
+    ; Reset hardware OAM
+    xor a, a
+    ld b, 160
+    ld hl, _OAMRAM
+    
 .resetOAM
-	ld [hli], a
-	dec b
-	jr nz, .resetOAM
+    ld [hli], a
+    dec b
+    jr nz, .resetOAM
   
   ret
 

@@ -1,5 +1,5 @@
 # You can set the name of the .gb ROM file here
-PROJECTNAME    	= GalacticArmada
+PROJECTNAME    	= KatawaShoujo
 SRCDIR      	= src
 LIBDIR      	= libs
 OBJDIR      	= obj
@@ -11,17 +11,18 @@ RESBACKGROUNDS  = $(RESDIR)/backgrounds
 GENDIR	    	= $(SRCDIR)/generated
 GENSPRITES	    = $(GENDIR)/sprites
 GENBACKGROUNDS	= $(GENDIR)/backgrounds
-BINS	    	= $(DSTDIR)/$(PROJECTNAME).gb
+BINS	    	= $(DSTDIR)/$(PROJECTNAME).gbc
 
 # Tools
 RGBDS ?=
 ASM := $(RGBDS)rgbasm
 GFX := $(RGBDS)rgbgfx
+DFX := python3 duckgfx.py
 LINK := $(RGBDS)rgblink
 FIX := $(RGBDS)rgbfix
 
 # Tool flags
-FIXFLAGS := -v -p 0xFF
+FIXFLAGS := -C -v -p 0xFF
 
 # https://stackoverflow.com/a/18258352
 # Make does not offer a recursive wild card function, so here's one:
@@ -46,29 +47,23 @@ all: $(BINS)
 
 # ANCHOR: generate-graphics
 NEEDED_GRAPHICS = \
-	$(GENSPRITES)/player-ship.2bpp \
-	$(GENSPRITES)/enemy-ship.2bpp \
-	$(GENSPRITES)/bullet.2bpp \
 	$(GENBACKGROUNDS)/text-font.2bpp \
-	$(GENBACKGROUNDS)/star-field.tilemap \
-	$(GENBACKGROUNDS)/title-screen.tilemap
+	$(GENBACKGROUNDS)/title-screen.tilemap \
+	$(GENBACKGROUNDS)/text-box.tilemap \
+	$(GENBACKGROUNDS)/school_library_1_hanako.tilemap
 
 # Generate sprites, ensuring the containing directories have been created.
 $(GENSPRITES)/%.2bpp: $(RESSPRITES)/%.png | $(GENSPRITES)
-	$(GFX) -c "#FFFFFF,#cfcfcf,#686868,#000000;" --columns -o $@ $<
+	$(GFX) -c "#e6facd,#83c26a,#306850,#071821;" --columns -o $@ $<
 
 # Generate background tile set, ensuring the containing directories have been created.
 $(GENBACKGROUNDS)/%.2bpp: $(RESBACKGROUNDS)/%.png | $(GENBACKGROUNDS)
-	$(GFX) -c "#FFFFFF,#cbcbcb,#414141,#000000;" -o $@ $<
+	$(GFX) -c "#e6facd,#83c26a,#306850,#071821;" -o $@ $<
 
 # Generate background tile map *and* tile set, ensuring the containing directories
 # have been created.
 $(GENBACKGROUNDS)/%.tilemap: $(RESBACKGROUNDS)/%.png | $(GENBACKGROUNDS)
-	$(GFX) -c "#FFFFFF,#cbcbcb,#414141,#000000;" \
-		--tilemap $@ \
-		--unique-tiles \
-		-o $(GENBACKGROUNDS)/$*.2bpp \
-		$<
+	$(DFX) $< $(GENBACKGROUNDS)/$*.2bpp $@ 256 12
 # ANCHOR_END: generate-graphics
 
 compile.bat: Makefile

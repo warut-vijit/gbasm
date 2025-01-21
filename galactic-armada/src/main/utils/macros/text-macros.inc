@@ -1,32 +1,58 @@
 ; ANCHOR: charmap
 ; The character map for the text-font 
-CHARMAP " ", 0
-CHARMAP ".", 24
-CHARMAP "-", 25
-CHARMAP "a", 26
-CHARMAP "b", 27
-CHARMAP "c", 28
-CHARMAP "d", 29
-CHARMAP "e", 30
-CHARMAP "f", 31
-CHARMAP "g", 32
-CHARMAP "h", 33
-CHARMAP "i", 34
-CHARMAP "j", 35
-CHARMAP "k", 36
-CHARMAP "l", 37
-CHARMAP "m", 38
-CHARMAP "n", 39
-CHARMAP "o", 40
-CHARMAP "p", 41
-CHARMAP "q", 42
-CHARMAP "r", 43
-CHARMAP "s", 44
-CHARMAP "t", 45
-CHARMAP "u", 46
-CHARMAP "v", 47
-CHARMAP "w", 48
-CHARMAP "x", 49
-CHARMAP "y", 50
-CHARMAP "z", 51
+; CHARMAP " ", 0
+; CHARMAP ".", 32
+; CHARMAP "-", 25
+; CHARMAP "A", 1
+; CHARMAP "B", 2
+; CHARMAP "C", 3
+; CHARMAP "D", 4
+; CHARMAP "E", 5
+; CHARMAP "F", 6
+; CHARMAP "G", 7
+; CHARMAP "H", 8
+; CHARMAP "I", 9
+; CHARMAP "J", 10
+; CHARMAP "K", 11
+; CHARMAP "L", 12
+; CHARMAP "M", 13
+; CHARMAP "N", 14
+; CHARMAP "O", 15
+; CHARMAP "P", 16
+; CHARMAP "Q", 17
+; CHARMAP "R", 18
+; CHARMAP "S", 19
+; CHARMAP "T", 20
+; CHARMAP "U", 21
+; CHARMAP "V", 22
+; CHARMAP "W", 23
+; CHARMAP "X", 24
+; CHARMAP "Y", 25
+; CHARMAP "Z", 26
+; CHARMAP "a", 33
+; CHARMAP "b", 34
+; CHARMAP "c", 35
+; CHARMAP "d", 36
+; CHARMAP "e", 37
+; CHARMAP "f", 38
+; CHARMAP "g", 39
+; CHARMAP "h", 40
+; CHARMAP "i", 41
+; CHARMAP "j", 42
+; CHARMAP "k", 43
+; CHARMAP "l", 44
+; CHARMAP "m", 45
+; CHARMAP "n", 46
+; CHARMAP "o", 47
+; CHARMAP "p", 48
+; CHARMAP "q", 49
+; CHARMAP "r", 50
+; CHARMAP "s", 51
+; CHARMAP "t", 52
+; CHARMAP "u", 53
+; CHARMAP "v", 54
+; CHARMAP "w", 55
+; CHARMAP "x", 56
+; CHARMAP "y", 57
+; CHARMAP "z", 58
 ; ANCHOR_END: charmap

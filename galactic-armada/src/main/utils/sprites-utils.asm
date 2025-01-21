@@ -10,9 +10,9 @@ wHelperValue::db
 SECTION "Sprites", ROM0
 
 ClearAllSprites::
-	 
-	; Start clearing oam
-	xor a
+     
+    ; Start clearing oam
+    xor a
     ld b, OAM_COUNT*sizeof_OAM_ATTRS ; 40 sprites times 4 bytes per sprite
     ld hl, wShadowOAM ; The start of our oam sprites in RAM
 
@@ -24,19 +24,19 @@ ClearOamLoop::
     ld [wSpritesUsed], a
     
     
-	; from: https://github.com/eievui5/gb-sprobj-lib
-	; Finally, run the following code during VBlank:
-	ld a, HIGH(wShadowOAM)
-	jp hOAMDMA
+    ; from: https://github.com/eievui5/gb-sprobj-lib
+    ; Finally, run the following code during VBlank:
+    ld a, HIGH(wShadowOAM)
+    jp hOAMDMA
 
 ClearRemainingSprites::
 
 ClearRemainingSprites_Loop::
 
     ;Get our offset address in hl
-	ld a,[wLastOAMAddress]
+    ld a,[wLastOAMAddress]
     ld l, a
-	ld a, HIGH(wShadowOAM)
+    ld a, HIGH(wShadowOAM)
     ld h, a
 
     ld a, l
@@ -64,10 +64,10 @@ ResetOAMSpriteAddress::
     xor a
     ld [wSpritesUsed], a
 
-	ld a, LOW(wShadowOAM)
-	ld [wLastOAMAddress], a
-	ld a, HIGH(wShadowOAM)
-	ld [wLastOAMAddress+1], a
+    ld a, LOW(wShadowOAM)
+    ld [wLastOAMAddress], a
+    ld a, HIGH(wShadowOAM)
+    ld [wLastOAMAddress+1], a
 
     ret
 ; ANCHOR_END: reset-oam-sprite-address
@@ -79,11 +79,11 @@ NextOAMSprite::
     inc a
     ld [wSpritesUsed], a
 
-	ld a,[wLastOAMAddress]
+    ld a,[wLastOAMAddress]
     add sizeof_OAM_ATTRS
-	ld [wLastOAMAddress], a
-	ld a, HIGH(wShadowOAM)
-	ld [wLastOAMAddress+1], a
+    ld [wLastOAMAddress], a
+    ld a, HIGH(wShadowOAM)
+    ld [wLastOAMAddress+1], a
 
 
     ret

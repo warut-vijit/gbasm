@@ -10,32 +10,32 @@ WaitForKeyFunction::
     ; Save our original value
     push bc
 
-	
+    
 WaitForKeyFunction_Loop:
 
-	; save the keys last frame
-	ld a, [wCurKeys]
-	ld [wLastKeys], a
+    ; save the keys last frame
+    ld a, [wCurKeys]
+    ld [wLastKeys], a
     
-	; This is in input.asm
-	; It's straight from: https://gbdev.io/gb-asm-tutorial/part2/input.html
-	; In their words (paraphrased): reading player input for gameboy is NOT a trivial task
-	; So it's best to use some tested code
+    ; This is in input.asm
+    ; It's straight from: https://gbdev.io/gb-asm-tutorial/part2/input.html
+    ; In their words (paraphrased): reading player input for gameboy is NOT a trivial task
+    ; So it's best to use some tested code
     call Input
 
     
-	ld a, [mWaitKey]
+    ld a, [mWaitKey]
     ld b, a
-	ld a, [wCurKeys]
+    ld a, [wCurKeys]
     and b
     jp z, WaitForKeyFunction_NotPressed
     
-	ld a, [wLastKeys]
+    ld a, [wLastKeys]
     and b
     jp nz, WaitForKeyFunction_NotPressed
 
-	; restore our original value
-	pop bc
+    ; restore our original value
+    pop bc
 
     ret
 

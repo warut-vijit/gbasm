@@ -48,9 +48,9 @@ DrawMetasprites::
     
 
     ; Get our offset address in hl
-	ld a,[wLastOAMAddress+0]
+    ld a,[wLastOAMAddress+0]
     ld l, a
-	ld a, HIGH(wShadowOAM)
+    ld a, HIGH(wShadowOAM)
     ld h, a
 
     ld a, [wMetaspriteY]
